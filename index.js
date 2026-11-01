@@ -1,99 +1,56 @@
-import Editorjs from "@editorjs/editorjs"
-import Header from "@editorjs/header"
-import ImageTool from "@editorjs/image"
-import List from "@editorjs/list"
-import Quote from "@editorjs/quote"
+import { editor } from './editor.js'
 
-const editor = new Editorjs({
-    holder: "editor",
+const btnSalvar = document.querySelector('button#salvar')
+btnSalvar.addEventListener('click', () => salvar(editor))
 
-    tools: {
-        header: {
-            class: Header,
-            config: {
-                placeholder: "Subtítulo",
-                levels: [2, 3],
-                defaultLevel: 2
-            }
-        },
-        image: {
-            class: ImageTool,
-            config: {
-                captionPlaceholder: "Legenda da imagem",
-                uploader: {
-                    uploadByFile(file) {
-                        return Promise.resolve({
-                            success: 1,
-                            file: {
-                                url: URL.createObjectURL(file)
-                            }
-                        })
-                    }
-                }
-            }
-        },
-        list: List,
-        quote: Quote
-    },
+async function salvar(editor) {
+    const dados = await editor.save()
+    console.log(dados)
+    renderizar(dados)
+}
 
-    i18n: {
-        messages: {
-            tools: {
-                header: {
-                    "Heading 2": "Subtítulo 2",
-                    "Heading 3": "Subtítulo 3"
-                },
+function renderizar(conteudo) {
+    const news = document.querySelector('section#news')
+    const titulo = document.querySelector('input#titulo')
 
-                image: {
-                    "Caption": "Legenda",
-                    "Select an Image": "Selecionar imagem",
-                    "With border": "Com borda",
-                    "Stretch image": "Expandir imagem",
-                    "With background": "Com fundo",
-                    "Delete": "Deletar",
-                    "Click to delete": "Clique para deletar"
-                },
+    news.innerHTML = ""
 
-                list: {
-                    "Ordered": "Lista numerada",
-                    "Unordered": "Lista com marcadores"
-                },
+    let ele = document.createElement('h3')
+    ele.textContent = titulo.value
+    news.appendChild(ele)
 
-                quote: {
-                    "Quote": "Citação",
-                    "Caption": "Autor da citação"
-                }
-            },
+    conteudo.blocks.forEach(bloco => {
+        let elemento
 
-            toolNames: {
-                "Text": "Texto",
-                "Heading": "Subtítulo",
-                "Image": "Imagem",
-                "List": "Lista",
-                "Quote": "Citação"
-            },
+        switch(bloco.type) {
+            case 'header':
+                elemento = document.createElement(
+                    `h${bloco.data.level}`
+                )
+                
+                elemento.textContent = bloco.data.text
+                break
+            case 'paragraph':
+                elemento = document.createElement('p')
+                elemento.innerHTML = bloco.data.text
+                break
+            case 'image':
+                let figure = document.createElement('figure')
+                let img = document.createElement('img')
+                let cap = document.createElement('figcaption')
 
-            ui: {
-                toolbar: {
-                    toolbox: {
-                        Add: "Adicionar"
-                    }
-                },
+                img.src = bloco.data.file.url
+                img.alt = bloco.data.caption || ''
+                cap.textContent = "| "+ bloco.data.caption || ''
 
-                blockTunes: {
-                    toggler: {
-                        "Click to tune": "Clique para configurar"
-                    }
-                },
-
-                inlineToolbar: {
-                    converter: {
-                        "Convert to": "Converter para"
-                    }
-                }
-            }
+                figure.appendChild(img)
+                figure.appendChild(cap)
+                news.appendChild(figure)
+                break
         }
-    },
 
-    placeholder: "Comece a escrever sua noticia"
-})
+        if (elemento) {
+            news.appendChild(elemento)
+        }
+    })
+}
