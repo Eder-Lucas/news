@@ -67,11 +67,9 @@ function mostrarNews() {
     const news = document.querySelector('section#news')
     
     if (news.textContent.trim() === "") {
-        //alert("Vazio então nao mostro")
         container.classList.remove("able")
         container.classList.add("desable")
     } else {
-        //alert("tem coisa então mostro")
         container.classList.remove("desable")
         container.classList.add("able")
     }
