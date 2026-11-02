@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="media-query.css">
 </head>
 <body>
     <header>
         <h1>Editor de redação</h1>
     </header>
 
-    <main>
-        <section class="editor-container">
-            <h2>NOVA PUBLICAÇÃO</h2>
-
-            <input id="titulo" type="text" placeholder="Titulo da notícia">
-            <div id="editor"></div>
-
-            <div id="button-container">
-                <button id="preview">Preview</button>
-                <button id="salvar"> Salvar rascunho</button>
-            </div>
-        </section>
-    </main>
-
-    <div class="desable" id="news_container">
-        <h2 id="h2_prev">PREVIEW</h2>
-        <section id="news"></section>
+    <div id="container">
+        <main>
+            <section class="editor-container">
+                <h2>NOVA PUBLICAÇÃO</h2>
+                <input id="titulo" type="text" placeholder="Titulo da notícia">
+                <div id="editor"></div>
+                <div id="button-container">
+                    <button id="preview">Preview</button>
+                    <button id="salvar"> Salvar rascunho</button>
+                </div>
+            </section>
+        </main>
+        <div class="desable" id="news_container">
+            <h2 id="h2_prev">PREVIEW</h2>
+            <section id="news"></section>
+        </div>
     </div>
 
     <script type="module" src="./index.js"></script>
