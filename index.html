@@ -18,13 +18,17 @@
             <input id="titulo" type="text" placeholder="Titulo da notícia">
             <div id="editor"></div>
 
-            <div id="button-container"><button id="salvar"> Salvar rascunho</button></div>
+            <div id="button-container">
+                <button id="preview">Preview</button>
+                <button id="salvar"> Salvar rascunho</button>
+            </div>
         </section>
     </main>
 
-    <p>PREVIEW</p>
-
-    <section id="news"></section>
+    <div class="desable" id="news_container">
+        <h2 id="h2_prev">PREVIEW</h2>
+        <section id="news"></section>
+    </div>
 
     <script type="module" src="./index.js"></script>
     <script type="module" src="./editor.js"></script>
