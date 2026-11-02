@@ -63,7 +63,12 @@ h2 {
     justify-content: end;
 }
 
-section button {
+section.editor-container, #news_container {
+    max-height: 470px;
+    overflow-y: auto;
+}
+
+#button-container button {
     border: none;
     padding: 10px;
     color: white;
@@ -73,11 +78,11 @@ section button {
     background-color: rgb(42, 113, 255);
 }
 
-section button:nth-child(1) {
+#button-container button:nth-child(1) {
     margin-right: 10px;
 }
 
-section button:hover {
+#button-container button:hover {
     cursor: pointer;
     background-color: rgba(42, 113, 255, 0.821);
     border-radius: 12px;
@@ -142,6 +147,7 @@ div#news_container {
 #news {
     max-width: 780px;
     padding: 10px;
+    overflow-wrap: break-word;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
