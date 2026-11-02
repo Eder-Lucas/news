@@ -6,8 +6,15 @@ btnSalvar.addEventListener('click', () => salvar(editor))
 async function salvar(editor) {
     const dados = await editor.save()
     console.log(dados)
+
     renderizar(dados)
+    mostrarNews()
+    alert("Notícia salva!")
 }
+
+const btnPreview = document.querySelector("button#preview")
+
+btnPreview.addEventListener('click', () => mostrarNews())
 
 function renderizar(conteudo) {
     const news = document.querySelector('section#news')
@@ -53,4 +60,19 @@ function renderizar(conteudo) {
             news.appendChild(elemento)
         }
     })
+}
+
+function mostrarNews() {
+    const container = document.querySelector('div#news_container')
+    const news = document.querySelector('section#news')
+    
+    if (news.textContent.trim() === "") {
+        //alert("Vazio então nao mostro")
+        container.classList.remove("able")
+        container.classList.add("desable")
+    } else {
+        //alert("tem coisa então mostro")
+        container.classList.remove("desable")
+        container.classList.add("able")
+    }
 }
